@@ -19,12 +19,30 @@ class Product_model extends CI_Model
                 'products.id',
                 'products.name',
                 'products.price',
-                'stock.quantity',
+                'stock.quantity as stock',
             ])
             ->from('products')
             ->join('stock', 'products.id = stock.product_id')
             ->get()
             ->result();
+    }
+    
+    /**
+     * @return ?object
+     */
+    public function find(): ?object
+    {
+        return $this->db
+            ->select([
+                'products.id',
+                'products.name',
+                'products.price',
+                'stock.quantity as stock',
+            ])
+            ->from('products')
+            ->join('stock', 'products.id = stock.product_id')
+            ->get()
+            ->row();
     }
 
     /**
@@ -33,7 +51,23 @@ class Product_model extends CI_Model
      */
     public function store(array $product): bool
     {
-        return $this->db->insert('products', $product);
+        $this->db->trans_start();
+
+        $this->db->insert('products', [
+            'name' => $product['name'],
+            'price' => $product['price']
+        ]);
+
+        $productId = $this->db->insert_id();
+
+        $this->db->insert('stock', [
+            'product_id' => $productId,
+            'quantity' => $product['stock']
+        ]);
+
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
     }
 
     /**
@@ -47,12 +81,15 @@ class Product_model extends CI_Model
 
          $this->db
             ->where('id', $id)
-            ->update('products', $product);
+            ->update('products', [
+                'name' => $product['name'],
+                'price' => $product['price']
+            ]);
 
         $this->db
             ->where('product_id', $id)
             ->update('stock', [
-                'quantity' => $product['quantity']
+                'quantity' => $product['stock']
             ]);
 
         $this->db->trans_complete();
@@ -72,12 +109,8 @@ class Product_model extends CI_Model
             ->where('id', $id)
             ->delete('products');
     
-        $this->db
-            ->where('product_id', $id)
-            ->delete('stock');
-
         $this->db->trans_complete();
         
-        return $this->db->trans_complete();
+        return $this->db->trans_status();
     }
 }
