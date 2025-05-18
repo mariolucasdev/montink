@@ -40,7 +40,7 @@ class Product extends CI_Controller
 				->set_content_type('application/json')
 				->set_output(json_encode([
 					'success' => false,
-					'message' => 'Product not found',
+					'message' => 'Produto não encontrado',
 				]));
 		}
 
@@ -68,8 +68,8 @@ class Product extends CI_Controller
 		]);
 
 		$productCreated
-			? $this->session->set_flashdata('success', 'Product created successfully')
-			: $this->session->set_flashdata('error', 'Error creating product');
+			? $this->session->set_flashdata('success', 'Produto cadastrado com sucesso')
+			: $this->session->set_flashdata('error', 'Erro ao cadastrar produto');
 
 		redirect(base_url('produtos'));
 	}
@@ -98,8 +98,8 @@ class Product extends CI_Controller
 		]);
 
 		$productUpdated
-			? $this->session->set_flashdata('success', 'Product updated successfully')
-			: $this->session->set_flashdata('error', 'Error updating product');	
+			? $this->session->set_flashdata('success', 'Produto atualizado com sucesso')
+			: $this->session->set_flashdata('error', 'Erro ao atualizar produto');	
 
 		redirect(base_url('produtos'));
 	}
@@ -125,8 +125,8 @@ class Product extends CI_Controller
 		$productDeleted = $this->product_model->delete($id);
 		
 		$message = $productDeleted
-			? 'Product deleted successfully'
-			: 'Error deleting product';
+			? 'Produto excluído com sucesso'
+			: 'Erro ao excluir produto';
 		
 		$productDeleted
 			? $this->session->set_flashdata('success', $message)

@@ -1,17 +1,9 @@
-<footer class="footer footer-transparent d-print-none">
+<footer class="footer footer-transparent d-print-none text-center">
     <div class="container-xl">
         <div class="row text-center align-items-center">
-            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-                <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item">
-                        Copyright &copy; <?= date('Y') ?>
-                        <a href="<?= base_url('') ?>" class="link-secondary">Montink</a>.
-                        Todos os direitos reservados.
-                    </li>
-                    <li class="list-inline-item">
-						Por <a target="_blank" href="https://mariolucas.me"> Mário Lucas 💻 </a> v1.0.0
-                    </li>
-                </ul>
+            <div class="col-12 mt-3 mt-lg-0 text-center">
+                &copy; <?= date('Y') ?><a href="<?= base_url() ?>" class="link-secondary"> Montink</a>.
+                | With ❤️ By <a target="_blank" href="https://github.com/mariolucasdev"> Mário Lucas 💻 </a>
             </div>
         </div>
     </div>
