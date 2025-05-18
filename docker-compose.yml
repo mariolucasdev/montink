@@ -1,0 +1,48 @@
+services:
+  nginx:
+    container_name: montink-nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html:delegate
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      montink_network:
+        aliases:
+          - "montink.localhost"
+  app:
+    container_name: montink-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html:delegate
+    depends_on:
+      - mysql
+    networks:
+      - montink_network
+  mysql:
+    container_name: montink-mysql
+    image: mysql:5.7.39
+    mem_limit: 3g
+    mem_reservation: 512m
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: montink
+      MYSQL_PASSWORD: montink
+      MYSQL_DATABASE: montink_db
+    volumes:
+      - .docker/mysql/dbdata:/var/lib/mysql:delegate
+    command: mysqld --sql_mode="" --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=0
+    ports:
+      - "3306:3306"
+    networks:
+      - montink_network
+networks:
+  montink_network:
+    driver: bridge

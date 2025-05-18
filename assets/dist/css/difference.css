@@ -1,0 +1,32 @@
+.datagrid {
+	--tblr-datagrid-padding: 1.5rem;
+	--tblr-datagrid-item-width: 15rem;
+	display: grid;
+	grid-gap: var(--tblr-datagrid-padding);
+	grid-template-columns: repeat(auto-fit, minmax(var(--tblr-datagrid-item-width), 1fr));
+}
+
+.datagrid-title {
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	line-height: 1rem;
+	color: var(--tblr-muted);
+	margin-bottom: 0.25rem;
+}
+
+.cids {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+
+.cids li {
+	margin: 3px 0;
+	padding: 3px;
+	text-align: justify;
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+}
