@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Cart extends CI_Controller
 {
@@ -19,14 +19,12 @@ class Cart extends CI_Controller
      */
     public function index(): void
     {
-        if(empty($this->session->cart->items)) {
-            $this->session->set_flashdata('error', 'O carrinho está vazio.');
-
-            redirect(base_url('produtos'));
+        if (empty($this->session->cart->items)) {
+            Notify::error('O carrinho está vazio.', 'produtos');
         }
 
         $this->template->load('cart/index', [
-            'title' => 'Carrinho',
+            'title'  => 'Carrinho',
             'action' => 'Gerenciar carrinho',
         ]);
     }
@@ -38,7 +36,7 @@ class Cart extends CI_Controller
     {
         $productId = $this->input->post('id', true);
 
-        if (! $productId) {
+        if (!$productId) {
             return $this->output
                 ->set_status_header(400)
                 ->set_content_type('application/json')
@@ -50,7 +48,7 @@ class Cart extends CI_Controller
 
         $product = $this->product->find($productId);
 
-        if (! $product) {
+        if (!$product) {
             $this->session->set_flashdata('error', 'Produto não encontrado');
 
             return $this->output
@@ -74,17 +72,17 @@ class Cart extends CI_Controller
                 );
 
                 $found = true;
-             
+
                 break;
             }
         }
 
-        if(! $found) {
+        if (!$found) {
             $this->session->cart->items[] = (object) [
-                'id' => $productId,
-                'name' => $product->name,
-                'price' => $product->price,
-                'qtd' => 1,
+                'id'         => $productId,
+                'name'       => $product->name,
+                'price'      => $product->price,
+                'qtd'        => 1,
                 'priceTotal' => $product->price,
             ];
         }
@@ -92,13 +90,13 @@ class Cart extends CI_Controller
         $this->session->cart->total += $product->price;
         $this->session->cart->totalItems += 1;
 
-        $this->product->update( $productId, [
-            'name' => $product->name,
+        $this->product->update($productId, [
+            'name'  => $product->name,
             'price' => $product->price,
             'stock' => $product->stock - 1,
         ]);
 
-        $this->session->set_flashdata('success', 'Produto adicionado ao carrinho');
+        Notify::success('Produto adicionado ao carrinho');
 
         return $this->output
             ->set_status_header(200)
@@ -116,8 +114,8 @@ class Cart extends CI_Controller
     {
         $index = $this->input->post('index', true);
 
-        if (! $index) {
-            $this->session->set_flashdata('error', 'ID do item é obrigatório');
+        if (!$index) {
+            Notify::error('ID do item é obrigatório');
 
             return $this->output
                 ->set_status_header(400)
@@ -130,7 +128,9 @@ class Cart extends CI_Controller
 
         $index = $index - 1;
 
-        if(! isset($this->session->cart->items[$index])) {
+        if (!isset($this->session->cart->items[$index])) {
+            Notify::error('Item não encontrado no carrinho');
+
             return $this->output
                 ->set_status_header(404)
                 ->set_content_type('application/json')
@@ -142,16 +142,18 @@ class Cart extends CI_Controller
 
         $item = $this->session->cart->items[$index];
 
-        $product = $this->product->find($item->id);
+        $product        = $this->product->find($item->id);
         $product->price = format_currency_to_float($product->price);
-            
+
         $productUpdated = $this->product->update($item->id, [
-            'name' => $product->name,
+            'name'  => $product->name,
             'price' => $product->price,
             'stock' => $product->stock + $item->qtd,
         ]);
 
-        if(! $productUpdated) {
+        if (!$productUpdated) {
+            Notify::error('Erro ao atualizar o estoque do produto');
+
             return $this->output
                 ->set_status_header(500)
                 ->set_content_type('application/json')
@@ -160,13 +162,13 @@ class Cart extends CI_Controller
                     'message' => 'Erro ao atualizar o estoque do produto',
                 ]));
         }
-            
+
         $this->session->cart->totalItems -= $item->qtd;
         $this->session->cart->total -= $item->priceTotal;
 
         unset($this->session->cart->items[$index]);
 
-        $this->session->set_flashdata('success', 'Produto removido do carrinho');
+        Notify::success('Produto removido do carrinho');
 
         return $this->output
             ->set_status_header(200)
@@ -193,20 +195,20 @@ class Cart extends CI_Controller
         }
 
         foreach ($this->session->cart->items as $item) {
-            $product = $this->product->find($item->id);
-		    $product->price = format_currency_to_float($product->price);
+            $product        = $this->product->find($item->id);
+            $product->price = format_currency_to_float($product->price);
 
             $this->product->update($item->id, [
-                'name' => $product->name,
+                'name'  => $product->name,
                 'price' => $product->price,
                 'stock' => $product->stock + $item->qtd,
             ]);
         }
 
         unset($this->session->cart);
-        
-        $this->session->set_flashdata('success', 'Carrinho limpo com sucesso');
-        
+
+        Notify::success('Carrinho limpo com sucesso');
+
         return $this->output
             ->set_status_header(200)
             ->set_content_type('application/json')

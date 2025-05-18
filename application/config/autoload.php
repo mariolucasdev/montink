@@ -63,6 +63,7 @@ $autoload['libraries'] = [
     'session',
     'database',
     'migration',
+    'notify',
 ];
 
 /*
