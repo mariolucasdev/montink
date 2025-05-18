@@ -48,9 +48,9 @@
 									<tr>
 										<td width="100">#<?= $key?></td>
 										<td><?= $product->name ?></td>
-										<td class="text-end" width="100"><?= $product->price ?></td>
+										<td class="text-end" width="100"><?= format_currency($product->price) ?></td>
 										<td class="text-center" width="100"><?= $product->qtd ?></td>
-										<td width="100"><?= $product->priceTotal ?></td>
+										<td width="100"><?= format_currency($product->priceTotal) ?></td>
 
 										<td width="200" class="text-end">
 											<!-- <a href="#" onclick="editItem(<?= $key ?>)" class="btn btn-sm">
@@ -71,7 +71,7 @@
 										<strong><?= $this->session->cart->totalItems ?></strong>
 									</td>
 									<td colspan="1" class="text-start">
-										<strong><?= $this->session->cart->total ?></strong>
+										<strong><?= format_currency($this->session->cart->total) ?></strong>
 									</td>
 									<td colspan="1" class="text-end">
 										<a href="<?= base_url('cart/checkout') ?>" class="btn btn-primary">Finalizar</a>

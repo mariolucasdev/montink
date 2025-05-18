@@ -7,8 +7,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @param string $table
  * @param string $last_query
- * @param string|null $query_info
  * @param array $error
+ * 
  * @return void
  */
 function render_migration_message(

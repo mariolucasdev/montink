@@ -58,9 +58,12 @@ class Product extends CI_Controller
 	 */
 	public function store(): void
 	{
+		$price = $this->input->post('price', true);
+		$price = format_currency_to_float($price);
+
 		$productCreated = $this->product_model->store([
 			'name' => $this->input->post('name', true),
-			'price' => $this->input->post('price', true),
+			'price' => $price,
 			'stock' => $this->input->post('stock', true),
 		]);
 
@@ -85,9 +88,12 @@ class Product extends CI_Controller
 			redirect(base_url('produtos'));
 		}
 
+		$price = $this->input->post('price', true);
+		$price = format_currency_to_float($price);
+
 		$productUpdated = $this->product_model->update($id, [
 			'name' => $this->input->post('name', true),
-			'price' => $this->input->post('price', true),
+			'price' => $price,
 			'stock' => $this->input->post('stock', true),
 		]);
 

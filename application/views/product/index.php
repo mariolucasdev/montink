@@ -107,7 +107,7 @@
 									<tr>
 										<td width="100"><?= $product->id ?></td>
 										<td><?= $product->name ?></td>
-										<td width="200"><?= $product->price ?></td>
+										<td width="200"><?= format_currency($product->price) ?></td>
 										<td width="200"><?= $product->stock ?></td>
 	
 										<td width="200" class="text-end">

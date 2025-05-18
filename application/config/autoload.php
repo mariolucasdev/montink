@@ -97,6 +97,7 @@ $autoload['drivers'] = array();
 $autoload['helper'] = [
     'url',
     'migration_message_helper',
+    'currency_helper',
 ];
 
 /*

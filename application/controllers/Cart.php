@@ -143,6 +143,7 @@ class Cart extends CI_Controller
         $item = $this->session->cart->items[$index];
 
         $product = $this->product->find($item->id);
+        $product->price = format_currency_to_float($product->price);
             
         $productUpdated = $this->product->update($item->id, [
             'name' => $product->name,
@@ -193,6 +194,7 @@ class Cart extends CI_Controller
 
         foreach ($this->session->cart->items as $item) {
             $product = $this->product->find($item->id);
+		    $product->price = format_currency_to_float($product->price);
 
             $this->product->update($item->id, [
                 'name' => $product->name,
