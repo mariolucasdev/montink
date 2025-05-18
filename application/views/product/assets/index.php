@@ -68,4 +68,37 @@
 		$('#createProductForm').hide();
 		$('#tableListProducts').fadeIn();
 	}
+
+	function addToCart(id) {
+		const elTargetButton = $(`#addToCart${id}`);
+
+		elTargetButton.attr('disabled', true);
+
+		$.ajax({
+			url: '<?= base_url('cart/addItem/') ?>',
+			cache: false,
+			type: 'POST',
+			data: {
+				id: id
+			},
+			success: function(response) {
+				if (response.success) {
+					elTargetButton.attr('disabled', false);
+					elTargetButton.attr('class', 'btn btn-sm btn-outline text-success');
+					
+					setTimeout(() => {
+						elTargetButton.attr('class', 'btn btn-sm btn-outline');
+					}, 3000);
+				}
+			},
+			error: function(error) {
+				elTargetButton.attr('disabled', false);
+				window.location.reload();
+			},
+			complete: function() {
+				elTargetButton.attr('disabled', false);
+				window.location.reload();
+			}
+		});
+	}
 </script>

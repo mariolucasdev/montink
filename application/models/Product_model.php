@@ -20,6 +20,7 @@ class Product_model extends CI_Model
                 'products.name',
                 'products.price',
                 'stock.quantity as stock',
+                '(stock.quantity > 0) as available',
             ])
             ->from('products')
             ->join('stock', 'products.id = stock.product_id')
@@ -30,7 +31,7 @@ class Product_model extends CI_Model
     /**
      * @return ?object
      */
-    public function find(): ?object
+    public function find(int $id): ?object
     {
         return $this->db
             ->select([
@@ -38,9 +39,11 @@ class Product_model extends CI_Model
                 'products.name',
                 'products.price',
                 'stock.quantity as stock',
+                '(stock.quantity > 0) as available',
             ])
             ->from('products')
             ->join('stock', 'products.id = stock.product_id')
+            ->where('products.id', $id)
             ->get()
             ->row();
     }
@@ -79,7 +82,7 @@ class Product_model extends CI_Model
     {
         $this->db->trans_start();
 
-         $this->db
+        $this->db
             ->where('id', $id)
             ->update('products', [
                 'name' => $product['name'],

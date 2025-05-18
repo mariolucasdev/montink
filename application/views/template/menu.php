@@ -37,7 +37,31 @@
                             </span>
                         </a>
                     </li>
+                    
                 </ul>
+                
+                <?php if($this->session->cart->totalItems): ?>
+                    <div class="navbar-divider d-md-none"></div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item <?= $route != 'cart' ?: 'active' ?>">
+                            <a class="nav-link" href="<?= base_url('carrinho') ?>">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17h-11v-14h-2" /><path d="M6 5l14 1l-1 7h-13" /></svg>
+                                </span>
+                                
+                                <span class="nav-link-title">
+                                    Carrinho
+                                </span>
+    
+                                <?php if($this->session->cart?->totalItems > 0): ?>
+                                    <span class="badge bg-red ms-1">
+                                        <?= $this?->session->cart->totalItems ?>
+                                    </span>
+                                <?php endif; ?>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif ?>
             </div>
         </div>
     </div>
