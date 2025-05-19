@@ -240,16 +240,20 @@ class Cart extends CI_Controller
         switch ($total) {
             case $total >= 52 && $total <= 166.59:
                 $this->session->cart->shipping = 15.00;
-            break;
+
+                break;
             case $total > 166.59 && $total <= 200:
                 $this->session->cart->shipping = 10.00;
+
                 break;
             case $total > 200:
                 $this->session->cart->shipping = 0.00;
-            break;
+
+                break;
             default:
                 $this->session->cart->shipping = 20.00;
-            break;
+
+                break;
         }
     }
 }

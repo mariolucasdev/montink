@@ -8,7 +8,7 @@ class Migrate extends CI_Controller
     {
         $this->template->loadHeader(['title' => 'Migrate']);
         $this->template->loadNavbar();
-        
+
         if($this->migration->current()):
             $this->load->view('migration/updated');
         endif;

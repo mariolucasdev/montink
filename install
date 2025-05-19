@@ -1,0 +1,52 @@
+#!/bin/bash
+
+echo "
+
+  __  __             _   _       _    
+ |  \/  | ___  _ __ | |_(_)_ __ | | __
+ | |\/| |/ _ \| '_ \| __| | '_ \| |/ /
+ | |  | | (_) | | | | |_| | | | |   < 
+ |_|  |_|\___/|_| |_|\__|_|_| |_|_|\_\
+                                     
+
+        Bem-vindo à Montink Setup
+"
+
+echo "🐳  Pulling Docker Images..."
+echo "========================================================="
+docker compose down
+
+echo "\n"
+
+echo "🐳  Build Docker Containers"
+echo "========================================================="
+docker compose up -d --build > /dev/null
+
+echo "\n"
+
+echo "📦 Install Composer Packages"
+echo "========================================================="
+docker compose exec -it app git config --global --add safe.directory /var/www/html
+docker compose exec -it app composer install --no-interaction --prefer-dist --optimize-autoloader
+echo "\n"
+
+echo "🐬 Migrate Database"
+echo "========================================================="
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+echo "🕛 Please wait while we migrate the database..."
+sleep 5
+curl -s http://0.0.0.0/migrate > /dev/null
+echo "✔️  Database migrated."
+echo "\n"
+
+echo "⭐ Montink is being installed!"
+echo "Acesse: http://montink.localhost"

@@ -15,15 +15,15 @@ cd montink
 
 3. Libera as permissões de execução:
 ```
-chmod +x ./setup.sh
+chmod +x ./install
 ```
 
 4. Execute o script de instalação:
 ```
-./setup.sh
+sh install
 ```
 
-## Webhook de Pedidos
+## 🕸️ Webhook de Pedidos
 
 Para executar o webhook de pedidos, execute o seguinte comando:
 
@@ -35,3 +35,11 @@ curl -X POST http://0.0.0.0/webhook/pedidos \
 
 Observação: orderId deve ser um id de pedido existente e status deve ser um dos seguintes: "completed", "pending", "cancelled".
 Caso o status para atualizar seja cancelled o pedido será excluído da base de dados.
+
+## Tecnologias Usadas
+* PHP 8.1 FPM
+* Docker
+* Docker Compose
+* HTML, CSS, JavaScript, Bootstrap 4
+* Codeigniter 3
+* MySQL 5.6
