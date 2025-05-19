@@ -57,6 +57,3 @@
 		</div>
 	</div>
 </div>
-
-<?php $this->load->view('product/modals/edit-product') ?>
-<?php $this->load->view('product/modals/delete-product') ?>
