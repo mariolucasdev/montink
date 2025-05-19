@@ -23,6 +23,21 @@ class Order_model extends CI_Model
     }
 
     /**
+     * Get order by id
+     *
+     * @param int $id
+     * @return ?object
+     */
+    public function find(int $id): ?object
+    {
+        return $this->db
+            ->from('orders')
+            ->where('id', $id)
+            ->get()
+            ->row();
+    }
+
+    /**
      * @param array $order
      * @return ?int
      */
@@ -31,6 +46,29 @@ class Order_model extends CI_Model
         $this->db->insert('orders', $order);
 
         return $this->db->insert_id();
+    }
+
+    /**
+     * @param int $id
+     * @param array $order
+     * @return boolean
+     */
+    public function update(int $id, array $order): bool
+    {
+        return $this->db
+            ->where('id', $id)
+            ->update('orders', $order);
+    }
+
+    /**
+     * @param int $id
+     * @return boolean
+     */
+    public function delete(int $id): bool
+    {
+        return $this->db
+            ->where('id', $id)
+            ->delete('orders');
     }
 
     /**

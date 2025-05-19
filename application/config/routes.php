@@ -57,4 +57,6 @@ $route['produtos(.*)'] = 'product$1';
 $route['carrinho(.*)'] = 'cart$1';
 $route['pedidos(.*)'] = 'order$1';
 
+$route['webhook/pedidos'] = 'webhooks/orderWebhook';
+
 $route['migrate'] = 'tools/migrate';
