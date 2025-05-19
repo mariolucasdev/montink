@@ -9,10 +9,7 @@ $(document).ready(function () {
             
             $.ajax({
                 url: endpoint,
-                type: 'GET',
                 success: function (data) {
-                    console.log(data);
-
                     if(data.erro) {
                         $('#cep-validation').removeClass('hidden');
                         $('#cep-validation').addClass('visible');
