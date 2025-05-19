@@ -81,6 +81,15 @@
 								
 								<tr>
 									<td colspan="4" class="text-end">
+										<h3>PRODUTOS</h3>
+									</td>
+									<td colspan="2" class="text-start">
+										<h3><?= format_currency($this->session->cart->total) ?></h3>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="4" class="text-end">
 										<h3>FRETE</h3>
 									</td>
 									<td colspan="2" class="text-start">
@@ -93,7 +102,7 @@
 										<h3>TOTAL</h3>
 									</td>
 									<td colspan="2" class="text-start">
-										<h3><?= format_currency($this->session->cart->total) ?></h3>
+										<h3><?= format_currency($this->session->cart->total + $this->session->cart->shipping) ?></h3>
 									</td>
 								</tr>
 							</tbody>

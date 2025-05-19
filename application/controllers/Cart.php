@@ -96,6 +96,8 @@ class Cart extends CI_Controller
             'stock' => $product->stock - 1,
         ]);
 
+        $this->calculateShipping();
+
         Notify::success('Produto adicionado ao carrinho');
 
         return $this->output
@@ -167,6 +169,8 @@ class Cart extends CI_Controller
 
         unset($this->session->cart->items[$index]);
 
+        $this->calculateShipping();
+
         Notify::success('Produto removido do carrinho');
 
         return $this->output
@@ -203,6 +207,8 @@ class Cart extends CI_Controller
             ]);
         }
 
+        $this->calculateShipping();
+
         $this->resetCart();
 
         return $this->output
@@ -225,5 +231,25 @@ class Cart extends CI_Controller
         ]);
 
         Notify::success('Carrinho limpo com sucesso');
+    }
+
+    private function calculateShipping(): void
+    {
+        $total = $this->session->cart->total;
+
+        switch ($total) {
+            case $total >= 52 && $total <= 166.59:
+                $this->session->cart->shipping = 15.00;
+            break;
+            case $total > 166.59 && $total <= 200:
+                $this->session->cart->shipping = 10.00;
+                break;
+            case $total > 200:
+                $this->session->cart->shipping = 0.00;
+            break;
+            default:
+                $this->session->cart->shipping = 20.00;
+            break;
+        }
     }
 }
