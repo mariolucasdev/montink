@@ -51,7 +51,7 @@
 								<input 
 									name="price"
 									type="text"
-									class="form-control"
+									class="form-control currency"
 									id="price"
 									required
 									placeholder="R$ 0,00">
@@ -61,6 +61,7 @@
 								<label for="due_date">Estoque: *</label>
 								<input
 									name="stock"
+									type="number"
 									class="form-control mt-2"
 									id="stock"
 									required

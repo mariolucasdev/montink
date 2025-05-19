@@ -23,10 +23,9 @@
     $this->router->method == 'index'
 )?>
 
-<!-- create customized load assets -->
-<?php /* $this->template->loadAssets('schedule', 'validation', false) */ ?>
-
 <script src="<?= base_url('assets/geral/app.js') ?>"></script>
+<script src="<?= base_url('assets/geral/masks.js') ?>"></script>
+<script src="<?= base_url('assets/geral/viaCep.js') ?>"></script>
 
 </body>
 

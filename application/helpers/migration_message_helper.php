@@ -24,3 +24,4 @@ function render_migration_message(
         'errors'     => $errors,
     ]);
 }
+

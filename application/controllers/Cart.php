@@ -142,8 +142,7 @@ class Cart extends CI_Controller
 
         $item = $this->session->cart->items[$index];
 
-        $product        = $this->product->find($item->id);
-        $product->price = format_currency_to_float($product->price);
+        $product = $this->product->find($item->id);
 
         $productUpdated = $this->product->update($item->id, [
             'name'  => $product->name,
@@ -182,7 +181,7 @@ class Cart extends CI_Controller
     /**
      * @return CI_Output
      */
-    public function clearCart(): CI_Output
+    public function clean(): CI_Output
     {
         if (empty($this->session->cart->items)) {
             return $this->output
@@ -195,8 +194,7 @@ class Cart extends CI_Controller
         }
 
         foreach ($this->session->cart->items as $item) {
-            $product        = $this->product->find($item->id);
-            $product->price = format_currency_to_float($product->price);
+            $product = $this->product->find($item->id);
 
             $this->product->update($item->id, [
                 'name'  => $product->name,
@@ -205,9 +203,7 @@ class Cart extends CI_Controller
             ]);
         }
 
-        unset($this->session->cart);
-
-        Notify::success('Carrinho limpo com sucesso');
+        $this->resetCart();
 
         return $this->output
             ->set_status_header(200)
@@ -216,5 +212,18 @@ class Cart extends CI_Controller
                 'success' => true,
                 'message' => 'Carrinho limpo com sucesso',
             ]));
+    }
+
+    private function resetCart(): void
+    {
+        $this->session->unset_userdata('cart');
+
+        $this->session->set_userdata('cart', (object) [
+            'items'      => [],
+            'totalItems' => 0,
+            'total'      => 0,
+        ]);
+
+        Notify::success('Carrinho limpo com sucesso');
     }
 }

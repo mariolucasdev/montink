@@ -16,6 +16,7 @@ class CartHook
                 'items' => [],
                 'total' => 0,
                 'totalItems' => 0,
+                'shipping' => 0,
             ]);
         }
     }

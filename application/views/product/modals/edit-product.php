@@ -29,7 +29,7 @@
                             <input 
                                 name="price"
                                 type="text"
-                                class="form-control"
+                                class="form-control currency"
                                 id="price"
                                 required
                                 placeholder="R$ 0,00">
@@ -38,6 +38,7 @@
                         <div class="col-md-6 mb-2">
                             <label for="stock">Estoque: *</label>
                             <input
+                                type="number"
                                 name="stock"
                                 class="form-control mt-2"
                                 id="stock"

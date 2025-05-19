@@ -27,7 +27,24 @@ function removeItem(index) {
 			}
 		});
 	});
+}
 
+function cleanCart() {
+	$('#modalCleanCart').modal('show');
 
+	$('#modalCleanCart').on('click', '#cleanCart', function() {
+		$.ajax({
+			url: '<?= base_url('cart/clean') ?>',
+			cache: false,
+			type: 'POST',
+			success: function(response) {},
+			error: function(error) {},
+			complete: function() {
+				$('#modalCleanCart').modal('hide');
+
+				window.location.reload();
+			}
+		});
+	});
 }
 </script>

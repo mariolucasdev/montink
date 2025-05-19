@@ -10,9 +10,9 @@
 				<div class="col-auto ms-auto d-print-none">
 					<div class="btn-list">
 						<span class="d-sm-inline">
-							<a onclick="clearCart()" href="#" class="btn btn-danger">
+							<a onclick="cleanCart()" href="#" class="btn btn-danger">
 								<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon mx-1 icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-								Limpar carrinho
+								Esvaziar carrinho
 							</a>
 						</span>
 					</div>
@@ -64,17 +64,36 @@
 								<?php endforeach ?>
 
 								<tr>
-									<td colspan="3" class="text-end">
+									<td colspan="4" class="text-end">
+										<h3>CEP</h3>
+									</td>
+									<td colspan="2" class="text-start">
+										<input
+											type="text"
+											name="cep"
+											id="cep"
+											class="form-control cep  mb-2"
+											placeholder="CEP">
+
+										<small id="cep-validation" class="form-text hidden"></small>
+									</td>
+								</tr>
+								
+								<tr>
+									<td colspan="4" class="text-end">
+										<h3>FRETE</h3>
+									</td>
+									<td colspan="2" class="text-start">
+										<h3><?= format_currency($this->session->cart->shipping) ?></h3>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="4" class="text-end">
 										<h3>TOTAL</h3>
 									</td>
-									<td colspan="1" class="text-center">
-										<strong><?= $this->session->cart->totalItems ?></strong>
-									</td>
-									<td colspan="1" class="text-start">
-										<strong><?= format_currency($this->session->cart->total) ?></strong>
-									</td>
-									<td colspan="1" class="text-end">
-										<a href="<?= base_url('cart/checkout') ?>" class="btn btn-primary">Finalizar</a>
+									<td colspan="2" class="text-start">
+										<h3><?= format_currency($this->session->cart->total) ?></h3>
 									</td>
 								</tr>
 							</tbody>
@@ -88,3 +107,4 @@
 
 <?php $this->load->view('cart/modals/edit-item') ?>
 <?php $this->load->view('cart/modals/delete-item') ?>
+<?php $this->load->view('cart/modals/clean-cart') ?>
