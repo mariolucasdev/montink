@@ -7,6 +7,10 @@ $(document).ready(function () {
             const cepCleaned = cep.replace(/[^\d]+/g, '');
             const endpoint = `https://viacep.com.br/ws/${cepCleaned}/json/`
             
+            const form = $(this).closest('form');
+
+            form.find('button[type="submit"]').prop('disabled', true);
+
             $.ajax({
                 url: endpoint,
                 success: function (data) {
@@ -15,11 +19,12 @@ $(document).ready(function () {
                         $('#cep-validation').addClass('visible');
                         $('#cep-validation').html('CEP INVÁLIDO, TENTE NOVAMENTE');
                         $('#cep-validation').css('color', 'red');
+
+                        form.find('button[type="submit"]').prop('disabled', true);
                     } else {
-                        $('#cep-validation').removeClass('hidden');
-                        $('#cep-validation').addClass('visible');
-                        $('#cep-validation').html('CEP VÁLIDO - ' + data.logradouro + ', ' + data.bairro + ', ' + data.localidade + ', ' + data.uf);
-                        $('#cep-validation').css('color', 'green');
+                        const fullAddress = data.logradouro + ', ' + data.bairro + ', ' + data.localidade + ', ' + data.uf;
+                        form.find('input[name="address"]').val(fullAddress);
+                        form.find('button[type="submit"]').prop('disabled', false);
                     }
                 },
                 error: function (data) {

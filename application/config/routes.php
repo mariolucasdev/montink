@@ -53,8 +53,8 @@ $route['default_controller'] = 'product';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['home'] = 'dashboard';
 $route['produtos(.*)'] = 'product$1';
 $route['carrinho(.*)'] = 'cart$1';
+$route['pedidos(.*)'] = 'order$1';
 
 $route['migrate'] = 'tools/migrate';
